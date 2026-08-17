@@ -12,3 +12,20 @@ nav{display:flex;gap:26px}nav a{color:var(--muted);text-decoration:none;font-siz
 .principles{max-width:1200px;margin:20px auto 80px;padding:70px 6%;text-align:center;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,#081523,#07101b)}.principles div{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;color:var(--green);font-size:10px;letter-spacing:.15em}.principles h2{font-size:28px;margin-bottom:0}
 footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:var(--muted);font-size:10px;letter-spacing:.15em}
 @media(max-width:800px){nav{display:none}.domain-grid{grid-template-columns:1fr}.hero{padding-top:90px}.timeline div{grid-template-columns:1fr}.timeline small{grid-column:1}}
+/* ENG-001 clickable engagement card */
+
+.engagement-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.engagement-link article {
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.engagement-link:hover article {
+  transform: translateY(-5px);
+  border-color: #00d9ff;
+}
