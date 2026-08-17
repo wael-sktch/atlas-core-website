@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ENG-001 — Network Visibility | Atlas Core Enterprise</title>
+
+<meta
+  name="description"
+  content="Atlas Core Enterprise ENG-001 — Network Visibility and traffic analysis engagement."
+>
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+.project-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 80px 40px;
+}
+
+.project-header {
+  margin-bottom: 60px;
+}
+
+.project-number {
+  color: #20d9ff;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+.project-header h1 {
+  font-size: clamp(48px, 7vw, 90px);
+  margin: 15px 0;
+}
+
+.project-status {
+  color: #20ff9a;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.project-section {
+  margin-top: 60px;
+}
+
+.project-section h2 {
+  font-size: 32px;
+  border-bottom: 1px solid #20334a;
+  padding-bottom: 15px;
+}
+
+.project-card {
+  background: #0b1625;
+  border: 1px solid #20334a;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.project-card pre {
+  overflow-x: auto;
+  background: #070d16;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.evidence-grid img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #20334a;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 40px;
+  color: #20d9ff;
+  text-decoration: none;
+}
+
+.project-links a {
+  display: inline-block;
+  margin-right: 15px;
+  margin-top: 10px;
+  padding: 12px 18px;
+  border: 1px solid #20d9ff;
+  border-radius: 6px;
+  color: #20d9ff;
+  text-decoration: none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="nav">
+
+  <div class="brand">
+    <span class="mark">A</span>
+    ATLAS CORE
+    <small>ENTERPRISE</small>
+  </div>
+
+  <nav>
+    <a href="../index.html#architecture">Architecture</a>
+    <a href="../index.html#engagements">Engagements</a>
+    <a href="../index.html#journal">Daily Journal</a>
+    <a href="../index.html#domains">Domains</a>
+  </nav>
+
+</header>
+
+
+<main class="project-page">
+
+<a class="back-link" href="../index.html#engagements">
+← Back to Security Engagements
+</a>
+
+
+<section class="project-header">
+
+<div class="project-number">
+ENG-001
+</div>
+
+<h1>Network Visibility</h1>
+
+<p>
+Establish a repeatable baseline for observing Atlas Core
+network traffic before introducing additional security controls.
+</p>
+
+<div class="project-status">
+COMPLETED
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Objective</h2>
+
+<div class="project-card">
+
+<p>
+Establish a repeatable baseline for observing Atlas Core
+traffic before introducing new security controls.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Environment</h2>
+
+<div class="project-card">
+
+<ul>
+
+<li>pfSense</li>
+<li>Atlas Core enterprise network</li>
+<li>Authorized Windows/Kali systems</li>
+<li>Wireshark</li>
+<li>AtlasBank application in the DMZ</li>
+
+</ul>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Network Architecture</h2>
+
+<div class="project-card">
+
+<pre>
+WAN       192.168.3.0/24
+            |
+          pfSense
+            |
+ ┌──────────┼──────────┬──────────┐
+ |          |          |          |
+USERS     SERVERS      DMZ       MGMT
+10.10.10  10.10.20   10.10.30  10.10.40
+                         |
+                    AtlasBank
+                    10.10.30.5
+</pre>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Exercises Completed</h2>
+
+<div class="project-card">
+
+<h3>01 — pfSense Interface Validation</h3>
+
+<p>
+Validated the Atlas Core interfaces and confirmed the
+expected network addressing.
+</p>
+
+<pre>
+WAN      192.168.3.0/24
+SERVERS  10.10.20.0/24
+USERS    10.10.10.0/24
+DMZ      10.10.30.0/24
+MGMT     10.10.40.0/24
+</pre>
+
+
+<h3>02 — ARP Traffic Analysis</h3>
+
+<p>
+Captured ARP traffic on the management interface using
+Wireshark and observed request/reply behavior and
+broadcast discovery traffic.
+</p>
+
+
+<h3>03 — HTTP Traffic Analysis</h3>
+
+<p>
+Captured HTTP communication between the management
+network and AtlasBank in the DMZ.
+</p>
+
+<pre>
+Source:       10.10.40.10
+Destination:  10.10.30.5
+Protocol:     HTTP
+Destination:  TCP/80
+</pre>
+
+
+<h3>04 — AtlasBank Connectivity Validation</h3>
+
+<p>
+Validated connectivity to the AtlasBank web service
+from Kali using ICMP and HTTP requests.
+</p>
+
+
+<h3>05 — Administrative Endpoint Validation</h3>
+
+<p>
+Validated that the configured /admin/ endpoint was
+reachable over HTTP in the current lab configuration.
+</p>
+
+
+<h3>06 — Nikto Validation</h3>
+
+<p>
+Performed authorized web server validation against
+the AtlasBank DMZ host.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Key Findings</h2>
+
+<div class="project-card">
+
+<ul>
+
+<li>
+Atlas Core pfSense interfaces were operational and
+matched the intended network segmentation.
+</li>
+
+<li>
+MGMT-to-DMZ communication was observable through
+Wireshark.
+</li>
+
+<li>
+ARP discovery traffic was successfully captured.
+</li>
+
+<li>
+AtlasBank was reachable from the management network
+over TCP/80.
+</li>
+
+<li>
+The current lab configuration uses HTTP intentionally
+for traffic-analysis training.
+</li>
+
+<li>
+HTTPS will be introduced as a subsequent hardening
+exercise.
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Evidence</h2>
+
+<div class="evidence-grid">
+
+<img
+src="../assets/eng-001/01-pfsense-interface-assignments.png"
+alt="pfSense interface assignments"
+>
+
+<img
+src="../assets/eng-001/02-pfsense-interface-status.png"
+alt="pfSense interface status"
+>
+
+<img
+src="../assets/eng-001/03-wireshark-arp.png"
+alt="Wireshark ARP traffic"
+>
+
+<img
+src="../assets/eng-001/04-wireshark-http.png"
+alt="Wireshark HTTP traffic"
+>
+
+<img
+src="../assets/eng-001/05-curl-atlasbank.png"
+alt="Curl AtlasBank validation"
+>
+
+<img
+src="../assets/eng-001/06-curl-admin.png"
+alt="Curl admin endpoint validation"
+>
+
+<img
+src="../assets/eng-001/07-nikto-validation.png"
+alt="Nikto validation"
+>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Engineering Outcome</h2>
+
+<div class="project-card">
+
+<p>
+
+ENG-001 established the baseline network visibility
+required for subsequent Atlas Core security engagements.
+
+The environment can now be used to observe traffic before
+and after introducing segmentation, IDS, IPS, WAF and
+SIEM controls.
+
+</p>
+
+</div>
+
+</section>
+
+
+<section class="project-section">
+
+<h2>Next Engagement</h2>
+
+<div class="project-card">
+
+<h3>ENG-002 — VLAN Segmentation</h3>
+
+<p>
+Validate network isolation and controlled inter-zone
+traffic across the Atlas Core security zones.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="project-section project-links">
+
+<a href="../index.html#engagements">
+← All Engagements
+</a>
+
+<a
+href="https://github.com/wael-sktch/atlas-core-enterprise/tree/main/engagements/ENG-001-network-visibility"
+target="_blank"
+>
+View Engineering Repository
+</a>
+
+</section>
+
+</main>
+
+
+<footer>
+ATLAS CORE ENTERPRISE · SECURITY ENGINEERING LAB · 2026
+</footer>
+
+</body>
+</html>
